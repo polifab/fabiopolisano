@@ -243,10 +243,11 @@ p {
 ---------------------------------*/
 
 #header_wrapper {
-    background: #0A1525;
+    background: #DFD0BC;
     padding: 15px 0px;
 	
 	box-shadow: 1px 1px 4px rgba(60, 60, 60, 0.44);
+	/* box-shadow: 1px 1px 4px rgba(60, 60, 60, 0.44); */
     position: relative;
 }
 
@@ -282,7 +283,7 @@ p {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-    color: #D2D2D2;
+    color: #000000;
 }
 
 .navStyle {
@@ -551,7 +552,7 @@ div#main-nav {
 
 }
 .service_wrapper {
-    padding: 40px 0 40px;
+    padding: 40px 0 0px;
 }
 
 .service_section {
@@ -562,12 +563,14 @@ div#main-nav {
     padding-left: 15px;
     padding-right: 15px; 
 	position: relative;
+    border: 1px solid #DFD0BC;
+    /* border-radius: 100%; */
 }
 
 .service_icon {  
-    width: 90px;
-    height: 85px;
-    margin: 0px auto 25px; 
+    width: 0px;
+    height: 0px;
+    margin: 0px auto 0px; 
 }
 
  
@@ -610,6 +613,58 @@ color:#fff;
     margin: 0 0 35px 0; 
 }
 	
+
+/* The Modal (background) */
+
+#aboutCarousel img {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.carousel-inner .item {
+    transition: opacity 1s ease-in-out !important; /* Smoother fade-in/fade-out */
+}
+
+.carousel-inner .active {
+    opacity: 1 !important; /* Ensures active item is fully visible */
+}
+
+.carousel-inner .next,
+.carousel-inner .prev {
+    opacity: 0;
+}
+
+.carousel-section {
+    margin-top: 50px; /* Space above the carousel */
+    margin-bottom: 50px; /* Space below the carousel */
+}
+
+/* .nested-carousel {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+} */
+
+.carousel-image {
+    width: 600px; /* Make the image span the full width */
+    height: 800px; /* Stretch the height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+.carousel-section .carousel {
+    border: 1px solid #ddd; /* Optional: Add a subtle border for better visualization */
+    padding: 20px; /* Optional: Add padding inside the carousel */
+    background-color: #f9f9f9; /* Optional: Background color to distinguish it */
+}
+
+.about-us-list {
+    margin-top: 15px;
+}
+
+.carousel-control .glyphicon {
+    color: #708267; /* Change arrow color */
+}
 
 
 /* Latest Work
