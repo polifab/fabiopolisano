@@ -180,8 +180,21 @@
             background: var(--primary);
         }
 
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(45, 95, 79, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 1.5rem;
+        }
+        
         .hero-image {
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .hero-card {
@@ -584,6 +597,11 @@
                 </div>
             </div>
             <div class="hero-image">
+                <img 
+                src="img/fpo_3.jpeg" 
+                alt="Fabio Polisano" 
+                class="profile-pic"
+                >
                 <div class="hero-card">
                     <h3>Quick Facts</h3>
                     <div class="stat">
