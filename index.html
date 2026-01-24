@@ -20,7 +20,7 @@
             --dark: #0f1612;
             --darker: #070a08;
             --light: #f0f4f2;
-            --gray: #8ca398; /* Lightened slightly for better readability on dark */
+            --gray: #8ca398;
         }
 
         body {
@@ -32,15 +32,16 @@
             position: relative;
         }
 
-        /* --- NEW: Canvas Background --- */
+        /* Canvas Background */
         #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Puts it behind everything */
-            background: radial-gradient(circle at 50% 50%, #0f1612 0%, #070a08 100%);
+            z-index: -1;
+            /* Made the gradient slightly darker to help text pop */
+            background: radial-gradient(circle at 50% 50%, #0f1612 0%, #050706 100%);
         }
 
         .navbar {
@@ -48,7 +49,7 @@
             top: 0;
             width: 100%;
             padding: 1.5rem 5%;
-            background: rgba(15, 22, 18, 0.8); /* Made more transparent */
+            background: rgba(15, 22, 18, 0.85); /* Slightly more opaque for readability */
             backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid rgba(45, 95, 79, 0.3);
@@ -72,7 +73,7 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--light), var(--accent)); /* Changed to light for better pop */
+            background: linear-gradient(135deg, var(--light), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -117,7 +118,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            padding: 8rem 5% 0; /* Added top padding to account for navbar */
+            padding: 8rem 5% 0;
         }
 
         .hero-content {
@@ -131,7 +132,7 @@
         }
 
         .hero-text h1 {
-            font-size: 4rem; /* Increased size */
+            font-size: 4rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #ffffff, var(--accent));
             -webkit-background-clip: text;
@@ -163,7 +164,7 @@
         .btn {
             padding: 1rem 2.5rem;
             border: none;
-            border-radius: 50px; /* More rounded modern look */
+            border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -218,7 +219,7 @@
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
-            animation: float 6s ease-in-out infinite; /* Floating animation */
+            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -228,12 +229,12 @@
         }
 
         .hero-card {
-            background: rgba(15, 22, 18, 0.7);
+            background: rgba(15, 22, 18, 0.8); /* Increased opacity for readability */
             border: 1px solid rgba(90, 157, 136, 0.3);
             border-radius: 20px;
             padding: 2rem;
             backdrop-filter: blur(15px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             width: 100%;
             max-width: 400px;
         }
@@ -267,7 +268,6 @@
             margin: 0 auto;
         }
 
-        /* --- NEW: Scroll Reveal Animation Classes --- */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -314,14 +314,14 @@
         }
 
         .skill-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(20, 30, 25, 0.6); /* Darker background for better text contrast */
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 2.5rem;
             transition: all 0.4s;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
 
         .skill-card::before {
@@ -398,10 +398,11 @@
             position: relative;
             margin-bottom: 4rem;
             padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(20, 30, 25, 0.6); /* Darker background */
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             transition: all 0.4s;
+            backdrop-filter: blur(5px);
         }
 
         .timeline-item:hover {
@@ -458,11 +459,12 @@
         .publication-card {
             display: block;
             text-decoration: none;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(20, 30, 25, 0.6);
             border-left: 4px solid var(--primary);
             border-radius: 0 16px 16px 0;
             padding: 2rem;
             transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .publication-card:hover {
@@ -564,7 +566,7 @@
         .image-slider {
             position: relative;
             width: 100%;
-            height: 600px; /* Made taller */
+            height: 600px;
             border-radius: 20px;
             overflow: hidden;
             margin: 4rem 0;
@@ -577,7 +579,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 0.8s ease-in-out, transform 6s; /* Added slight zoom effect */
+            transition: opacity 0.8s ease-in-out, transform 6s;
             background-size: cover;
             background-position: center;
             transform: scale(1.05);
@@ -1021,14 +1023,6 @@
                     this.directionY = -this.directionY;
                 }
 
-                // Mouse interaction (Collision/Repel/Attract)
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                
-                // If mouse is close, gently push particles away to create a "path"
-                // OR attract them. Here we just let them float but connect lines.
-                
                 // Move particle
                 this.x += this.directionX;
                 this.y += this.directionY;
@@ -1045,9 +1039,11 @@
                 let size = (Math.random() * 2) + 1;
                 let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
                 let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.5) - 0.25; // Speed
-                let directionY = (Math.random() * 0.5) - 0.25;
-                let color = '#5a9d88'; // Accent color
+                let directionX = (Math.random() * 0.4) - 0.2; // Slower speed
+                let directionY = (Math.random() * 0.4) - 0.2;
+                
+                // CHANGED: Made particles very transparent (0.4 alpha)
+                let color = 'rgba(90, 157, 136, 0.4)'; 
                 
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
@@ -1074,7 +1070,8 @@
                     
                     if (distance < (canvas.width/7) * (canvas.height/7)) {
                         opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = 'rgba(90, 157, 136,' + opacityValue + ')';
+                        // CHANGED: Multiplied opacity by 0.15 to make lines very faint
+                        ctx.strokeStyle = 'rgba(90, 157, 136,' + (opacityValue * 0.15) + ')';
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -1088,7 +1085,8 @@
                                     ((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y));
                 
                 if (mouseDistance < 20000) {
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; // Brighter connection to mouse
+                    // CHANGED: Reduced mouse connection opacity to 0.1
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; 
                     ctx.beginPath();
                     ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
                     ctx.lineTo(mouse.x, mouse.y);
