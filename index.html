@@ -20,7 +20,7 @@
             --dark: #0f1612;
             --darker: #070a08;
             --light: #f0f4f2;
-            --gray: #6b7f76;
+            --gray: #8ca398; /* Lightened slightly for better readability on dark */
         }
 
         body {
@@ -29,6 +29,18 @@
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- NEW: Canvas Background --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Puts it behind everything */
+            background: radial-gradient(circle at 50% 50%, #0f1612 0%, #070a08 100%);
         }
 
         .navbar {
@@ -36,8 +48,8 @@
             top: 0;
             width: 100%;
             padding: 1.5rem 5%;
-            background: rgba(15, 22, 18, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 22, 18, 0.8); /* Made more transparent */
+            backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid rgba(45, 95, 79, 0.3);
             transition: all 0.3s;
@@ -45,7 +57,8 @@
 
         .navbar.scrolled {
             padding: 1rem 5%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(7, 10, 8, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
@@ -59,10 +72,11 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg, var(--light), var(--accent)); /* Changed to light for better pop */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -77,6 +91,8 @@
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
         }
 
         .nav-links a::after {
@@ -86,8 +102,9 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: var(--accent);
             transition: width 0.3s;
+            box-shadow: 0 0 10px var(--accent);
         }
 
         .nav-links a:hover::after {
@@ -100,18 +117,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
-            padding: 0 5%;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(45, 95, 79, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(90, 157, 136, 0.15) 0%, transparent 50%);
+            padding: 8rem 5% 0; /* Added top padding to account for navbar */
         }
 
         .hero-content {
@@ -125,60 +131,71 @@
         }
 
         .hero-text h1 {
-            font-size: 3.5rem;
+            font-size: 4rem; /* Increased size */
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--light), var(--primary));
+            background: linear-gradient(135deg, #ffffff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.1;
         }
 
         .hero-text .subtitle {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
 
         .hero-text p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--gray);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            max-width: 90%;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .btn {
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 50px; /* More rounded modern look */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            box-shadow: 0 4px 15px rgba(45, 95, 79, 0.4);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(45, 95, 79, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(90, 157, 136, 0.6);
         }
 
         .btn-secondary {
-            background: transparent;
+            background: rgba(255,255,255,0.05);
             color: var(--light);
-            border: 2px solid var(--primary);
+            border: 1px solid var(--accent);
+            backdrop-filter: blur(5px);
         }
 
         .btn-secondary:hover {
-            background: var(--primary);
+            background: rgba(90, 157, 136, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(90, 157, 136, 0.2);
         }
 
         .profile-pic {
@@ -186,9 +203,14 @@
             height: 320px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(45, 95, 79, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            margin-bottom: 1.5rem;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 40px rgba(90, 157, 136, 0.2);
+            margin-bottom: 2rem;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.02);
         }
         
         .hero-image {
@@ -196,97 +218,170 @@
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
+            animation: float 6s ease-in-out infinite; /* Floating animation */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
 
         .hero-card {
-            background: linear-gradient(135deg, rgba(45, 95, 79, 0.15), rgba(58, 125, 108, 0.15));
-            border: 1px solid rgba(45, 95, 79, 0.4);
+            background: rgba(15, 22, 18, 0.7);
+            border: 1px solid rgba(90, 157, 136, 0.3);
             border-radius: 20px;
             padding: 2rem;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
         }
 
         .hero-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
         }
 
         .hero-card .stat {
             display: flex;
             justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(45, 95, 79, 0.3);
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
         }
 
-        .hero-card .stat:last-child {
-            border-bottom: none;
+        .hero-card .stat span:last-child {
+            color: var(--accent);
+            font-weight: 600;
+            text-align: right;
         }
 
         .section {
-            padding: 6rem 5%;
+            padding: 8rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
 
+        /* --- NEW: Scroll Reveal Animation Classes --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .section-title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
             text-align: center;
-            background: linear-gradient(135deg, var(--light), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 10px auto 0;
+            border-radius: 2px;
         }
 
         .section-subtitle {
             text-align: center;
             color: var(--gray);
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
+            font-size: 1.1rem;
         }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
         }
 
         .skill-card {
-            background: linear-gradient(135deg, rgba(45, 95, 79, 0.08), rgba(58, 125, 108, 0.08));
-            border: 1px solid rgba(45, 95, 79, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 95, 79, 0.1), transparent);
+            opacity: 0;
+            transition: 0.4s;
         }
 
         .skill-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(45, 95, 79, 0.3);
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
         }
 
         .skill-card h3 {
             color: var(--accent);
             margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .skill-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
         }
 
         .tag {
-            padding: 0.4rem 0.8rem;
-            background: rgba(45, 95, 79, 0.3);
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            background: rgba(45, 95, 79, 0.2);
+            border: 1px solid rgba(45, 95, 79, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
             color: var(--light);
+            transition: all 0.3s;
+        }
+        
+        .skill-card:hover .tag {
+            background: var(--primary);
+            border-color: var(--primary);
         }
 
         .experience-timeline {
             position: relative;
             padding-left: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .experience-timeline::before {
@@ -296,79 +391,91 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(180deg, var(--primary), var(--accent));
+            background: linear-gradient(180deg, var(--primary), var(--accent), transparent);
         }
 
         .timeline-item {
             position: relative;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(45, 95, 79, 0.08), rgba(58, 125, 108, 0.08));
-            border: 1px solid rgba(45, 95, 79, 0.3);
-            border-radius: 15px;
-            transition: all 0.3s;
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.4s;
         }
 
         .timeline-item:hover {
-            border-color: var(--primary);
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.04);
             transform: translateX(10px);
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3.5rem;
-            top: 2rem;
-            width: 1rem;
-            height: 1rem;
+            left: -3.6rem;
+            top: 2.5rem;
+            width: 1.2rem;
+            height: 1.2rem;
             border-radius: 50%;
-            background: var(--primary);
-            border: 3px solid var(--darker);
+            background: var(--darker);
+            border: 4px solid var(--accent);
+            z-index: 2;
+            transition: all 0.3s;
+        }
+        
+        .timeline-item:hover::before {
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
         }
 
         .timeline-date {
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.9rem;
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .timeline-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
+            color: white;
         }
 
         .timeline-company {
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .timeline-desc {
-            color: var(--gray);
-            line-height: 1.8;
+            color: #b0c4bb;
+            margin-bottom: 1.5rem;
+            font-style: italic;
         }
 
         .publications-grid {
             display: grid;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .publication-card {
-            background: linear-gradient(135deg, rgba(45, 95, 79, 0.08), rgba(58, 125, 108, 0.08));
-            border: 1px solid rgba(45, 95, 79, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
+            display: block;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 16px 16px 0;
+            padding: 2rem;
             transition: all 0.3s;
         }
 
         .publication-card:hover {
-            border-color: var(--primary);
-            transform: translateX(5px);
+            background: rgba(45, 95, 79, 0.15);
+            border-left-color: var(--accent);
+            transform: translateX(10px);
         }
 
         .publication-title {
             color: var(--light);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
         .publication-authors {
@@ -380,17 +487,14 @@
         .publication-venue {
             color: var(--accent);
             font-size: 0.9rem;
-        }
-
-        .contact-section {
-            text-align: center;
+            font-weight: 600;
         }
 
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            margin-top: 3rem;
+            gap: 4rem;
+            margin-top: 4rem;
             flex-wrap: wrap;
         }
 
@@ -398,31 +502,38 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-10px);
         }
 
         .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), #204136);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            color: white;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .social-link {
-            width: 50px;
-            height: 50px;
-            background: rgba(45, 95, 79, 0.3);
+            width: 60px;
+            height: 60px;
+            background: transparent;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -430,36 +541,35 @@
             color: var(--light);
             text-decoration: none;
             transition: all 0.3s;
-            border: 1px solid rgba(45, 95, 79, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.5rem;
         }
 
         .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-5px) rotate(360deg);
+            box-shadow: 0 0 20px rgba(90, 157, 136, 0.4);
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
-            background: var(--dark);
+            padding: 3rem;
+            background: rgba(7, 10, 8, 0.8);
             color: var(--gray);
-            border-top: 1px solid rgba(45, 95, 79, 0.3);
+            font-size: 0.9rem;
+            margin-top: 4rem;
         }
 
         .image-slider {
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 600px; /* Made taller */
             border-radius: 20px;
             overflow: hidden;
-            margin: 3rem 0;
-            border: 1px solid rgba(45, 95, 79, 0.3);
-        }
-
-        .slider-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
+            margin: 4rem 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid rgba(90, 157, 136, 0.2);
         }
 
         .slide {
@@ -467,14 +577,15 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
-            background-size: contain;
+            transition: opacity 0.8s ease-in-out, transform 6s; /* Added slight zoom effect */
+            background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            transform: scale(1.05);
         }
 
         .slide.active {
             opacity: 1;
+            transform: scale(1);
         }
 
         .slide-overlay {
@@ -482,96 +593,54 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(7, 10, 8, 0.9), transparent);
-            padding: 2rem;
+            background: linear-gradient(to top, rgba(7, 10, 8, 0.95), rgba(7, 10, 8, 0.5), transparent);
+            padding: 3rem;
             color: var(--light);
-        }
-
-        .slide-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .slide-description {
-            color: var(--gray);
-        }
-
-        .slider-nav {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            gap: 1rem;
-            z-index: 10;
         }
 
         .slider-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(45, 95, 79, 0.6);
-            border: 1px solid rgba(45, 95, 79, 0.8);
-            color: var(--light);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
-        }
-
-        .slider-btn:hover {
-            background: var(--primary);
-            transform: scale(1.1);
-        }
-
-        .slider-dots {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.5rem;
-            z-index: 10;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(240, 244, 242, 0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .dot.active {
-            background: var(--accent);
-            width: 30px;
-            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         @media (max-width: 768px) {
             .hero-content {
                 grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
             }
 
+            .hero-buttons {
+                justify-content: center;
+            }
+            
             .hero-text h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
+            .experience-timeline {
+                padding-left: 2rem;
             }
 
-            .section {
-                padding: 4rem 5%;
+            .timeline-item::before {
+                left: -2.6rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .hero-card {
+                margin: 0 auto;
             }
         }
     </style>
 </head>
 <body>
+    <canvas id="particle-canvas"></canvas>
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">FP</div>
@@ -586,8 +655,7 @@
     </nav>
 
     <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
+        <div class="hero-content reveal">
             <div class="hero-text">
                 <h1>Fabio Polisano</h1>
                 <p class="subtitle">Robotics Engineer</p>
@@ -619,7 +687,7 @@
                     </div>
                     <div class="stat">
                         <span>Specialization</span>
-                        <span>  Space Robotics and Motion Planning</span>
+                        <span>  Space Robotics & Motion Planning</span>
                     </div>
                 </div>
             </div>
@@ -627,11 +695,11 @@
     </section>
 
     <section class="section" id="about">
-        <h2 class="section-title">Technical Expertise</h2>
-        <p class="section-subtitle">Core competencies and technologies</p>
+        <h2 class="section-title reveal">Technical Expertise</h2>
+        <p class="section-subtitle reveal">Core competencies and technologies</p>
         <div class="skills-grid">
-            <div class="skill-card">
-                <h3>🤖 Robotics Systems</h3>
+            <div class="skill-card reveal">
+                <h3><i class="fas fa-robot"></i> Robotics Systems</h3>
                 <p>Design and development of complete robotic systems including localization, navigation, and control for autonomous vehicles.</p>
                 <div class="skill-tags">
                     <span class="tag">ROS / ROS 2</span>
@@ -640,8 +708,8 @@
                     <span class="tag">Kinematics</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>💻 Programming</h3>
+            <div class="skill-card reveal">
+                <h3><i class="fas fa-code"></i> Programming</h3>
                 <p>Proficient in multiple programming languages for embedded systems, AI, and high-performance computing.</p>
                 <div class="skill-tags">
                     <span class="tag">C++</span>
@@ -650,8 +718,8 @@
                     <span class="tag">MATLAB</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>🎯 Computer Vision & AI</h3>
+            <div class="skill-card reveal">
+                <h3><i class="fas fa-eye"></i> Computer Vision & AI</h3>
                 <p>State-of-the-art AI techniques for perception, object detection, and environment understanding.</p>
                 <div class="skill-tags">
                     <span class="tag">OpenCV</span>
@@ -660,8 +728,8 @@
                     <span class="tag">Deep Learning</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>🛰️ Sensor Integration</h3>
+            <div class="skill-card reveal">
+                <h3><i class="fas fa-satellite-dish"></i> Sensor Integration</h3>
                 <p>Extensive experience with diverse sensor suites for autonomous systems and space applications.</p>
                 <div class="skill-tags">
                     <span class="tag">LiDAR</span>
@@ -670,8 +738,8 @@
                     <span class="tag">GPR</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>⚙️ Development Tools</h3>
+            <div class="skill-card reveal">
+                <h3><i class="fas fa-tools"></i> Development Tools</h3>
                 <p>Modern development environment and tools for collaborative robotics software development.</p>
                 <div class="skill-tags">
                     <span class="tag">Linux</span>
@@ -680,8 +748,8 @@
                     <span class="tag">Gazebo</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>🚀 Space Robotics</h3>
+            <div class="skill-card reveal">
+                <h3><i class="fas fa-user-astronaut"></i> Space Robotics</h3>
                 <p>Specialized in lunar exploration systems, including rover control and cooperative multi-robot missions.</p>
                 <div class="skill-tags">
                     <span class="tag">ESA Projects</span>
@@ -693,10 +761,10 @@
     </section>
 
     <section class="section" id="experience">
-        <h2 class="section-title">Professional Journey</h2>
-        <p class="section-subtitle">Career milestones and achievements</p>
+        <h2 class="section-title reveal">Professional Journey</h2>
+        <p class="section-subtitle reveal">Career milestones and achievements</p>
         
-        <div class="image-slider">
+        <div class="image-slider reveal">
             <div class="slider-container">
                 <div class="slide" style="background-image: linear-gradient(135deg, rgba(45, 95, 79, 0.3), rgba(58, 125, 108, 0.3)), url('https://www.pickit3d.com/files/_captionedImage/718A3234.jpg');">
                     <div class="slide-overlay">
@@ -736,19 +804,21 @@
                 </div>
             </div>
             <div class="slider-nav">
-                <button class="slider-btn" onclick="changeSlide(-1)">◀</button>
-                <button class="slider-btn" onclick="changeSlide(1)">▶</button>
+                <button class="slider-btn" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="slider-dots">
                 <span class="dot active" onclick="currentSlide(0)"></span>
                 <span class="dot" onclick="currentSlide(1)"></span>
                 <span class="dot" onclick="currentSlide(2)"></span>
                 <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
             </div>
         </div>
         
         <div class="experience-timeline">
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-date">January 2025 - Present</div>
                 <h3 class="timeline-title">Robotics Engineer</h3>
                 <p class="timeline-company">Pick-it NV | Leuven, Belgium</p>
@@ -757,7 +827,7 @@
                 </p>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-date">June 2021 - December 2024</div>
                 <h3 class="timeline-title">Robotics Engineer</h3>
                 <p class="timeline-company">Space Applications Services NV/SA | Zaventem, Belgium</p>
@@ -766,7 +836,7 @@
                 </p>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-date">October 2018 - February 2022</div>
                 <h3 class="timeline-title">M.Sc. in Robotics and Automation Engineering</h3>
                 <p class="timeline-company">University of Pisa | Pisa, Italy</p>
@@ -775,7 +845,7 @@
                 </p>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-date">July 2018 - October 2018</div>
                 <h3 class="timeline-title">Bachelor Thesis Internship</h3>
                 <p class="timeline-company">STMicroelectronics | Catania, Italy</p>
@@ -784,7 +854,7 @@
                 </p>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-date">October 2015 - October 2018</div>
                 <h3 class="timeline-title">B.Sc. in Computer Engineering</h3>
                 <p class="timeline-company">University of Catania | Catania, Italy</p>
@@ -796,64 +866,64 @@
     </section>
 
     <section class="section" id="publications">
-        <h2 class="section-title">Research & Publications</h2>
-        <p class="section-subtitle">Contributions to robotics and autonomous systems</p>
+        <h2 class="section-title reveal">Research & Publications</h2>
+        <p class="section-subtitle reveal">Contributions to robotics and autonomous systems</p>
         <div class="publications-grid">
-            <a href="https://www.science.org/doi/10.1126/scirobotics.adj9699" class="publication-card" target="_blank">
+            <a href="https://www.science.org/doi/10.1126/scirobotics.adj9699" class="publication-card reveal" target="_blank">
                 <div class="publication-title">Cooperative robotic exploration of a planetary skylight surface and lava cave</div>
                 <div class="publication-authors">Domínguez, R., Pérez-del-Pulgar, C., Paz-Delgado, G.J., Polisano, F., Babel, J., Germa, T., Dragomir, I., Ciarletti, V., Bethert, A., Danter, L.C., Kirchner, F.</div>
                 <div class="publication-venue">Science Robotics 10: eadj9699, 2025</div>
             </a>
 
-            <a href="https://arxiv.org/abs/2404.14167" class="publication-card" target="_blank">
+            <a href="https://arxiv.org/abs/2404.14167" class="publication-card reveal" target="_blank">
                 <div class="publication-title">A multi-robot system for the detection of explosive devices</div>
                 <div class="publication-authors">Hasselmann, K., ..., Polisano, F., et al.</div>
                 <div class="publication-venue">IEEE ICRA Workshop on Field Robotics, 2024</div>
             </a>
 
-            <a href="https://ieeexplore.ieee.org/document/10553196" class="publication-card" target="_blank">
+            <a href="https://ieeexplore.ieee.org/document/10553196" class="publication-card reveal" target="_blank">
                 <div class="publication-title">Towards Learning-Based Distributed Task Allocation Approach for Multi-Robot System</div>
                 <div class="publication-authors">Chekakta, Z., ..., Polisano, F., et al.</div>
                 <div class="publication-venue">10th International Conference on Automation, Robotics and Applications (ICARA), 2024</div>
             </a>
 
-            <div class="publication-card">
+            <div class="publication-card reveal">
                 <div class="publication-title">Heterogeneous robots for mapping lunar lava tubes in CoRob-X project</div>
                 <div class="publication-authors">Polisano, F., et al.</div>
                 <div class="publication-venue">ASTRA Conference, 2023</div>
             </div>
 
-            <a href="https://ui.adsabs.harvard.edu/abs/2023LPICo2697.1026D/abstract" class="publication-card" target="_blank">
+            <a href="https://ui.adsabs.harvard.edu/abs/2023LPICo2697.1026D/abstract" class="publication-card reveal" target="_blank">
                 <div class="publication-title">Field Testing of Cooperative Multi-Robot Technology for Accessing and Exploring a Planetary Lava Tube</div>
                 <div class="publication-authors">Dominguez, R., ..., Polisano, F.</div>
                 <div class="publication-venue">4th International Planetary Caves Conference, Lanzarote, Spain, 2023</div>
             </a>
 
-            <a href="https://insu.hal.science/insu-04471397/document" class="publication-card" target="_blank">
+            <a href="https://insu.hal.science/insu-04471397/document" class="publication-card reveal" target="_blank">
                 <div class="publication-title">CoRob-X: Demonstration of a Cooperative Robot Team in Extensive Field Tests</div>
                 <div class="publication-authors">Vögele, T., Ocón, J., Polisano, F., et al.</div>
                 <div class="publication-venue">ASTRA Conference, 2023</div>
             </a>
 
-            <a href="https://researchportal.rma.ac.be/en/publications/multi-agent-system-and-ai-for-explosive-ordnance-disposal/" class="publication-card" target="_blank">
+            <a href="https://researchportal.rma.ac.be/en/publications/multi-agent-system-and-ai-for-explosive-ordnance-disposal/" class="publication-card reveal" target="_blank">
                 <div class="publication-title">Multi-agent system and AI for Explosive Ordnance Disposal</div>
                 <div class="publication-authors">Ghisoni, E., Govindaraj, Polisano, F., et al.</div>
                 <div class="publication-venue">CEIA Humanitarian Clearance Teamwork, 26., 2023</div>
             </a>
 
-            <div class="publication-card">
+            <div class="publication-card reveal">
                 <div class="publication-title">Cooperative Mapping for Lunar Exploration by a Team of Heterogeneous Robots</div>
                 <div class="publication-authors">De Benedetti, M., Polisano, F., Govindaraj, S.</div>
                 <div class="publication-venue">ASTRA Conference, 2022</div>
             </div>
 
-            <a href="https://www.researchgate.net/publication/364128399_LUVMI-X_rover_test_results_and_prospects" class="publication-card" target="_blank">
+            <a href="https://www.researchgate.net/publication/364128399_LUVMI-X_rover_test_results_and_prospects" class="publication-card reveal" target="_blank">
                 <div class="publication-title">LUVMI-X rover: test results and prospects</div>
                 <div class="publication-authors">Gancet, J., De Benedetti, M., Polisano, F., et al.</div>
                 <div class="publication-venue">IAC 2022</div>
             </a>
 
-            <a href="https://pubmed.ncbi.nlm.nih.gov/34496321/" class="publication-card" target="_blank">
+            <a href="https://pubmed.ncbi.nlm.nih.gov/34496321/" class="publication-card reveal" target="_blank">
                 <div class="publication-title">MPC based optimization applied to treatment of HCV infections</div>
                 <div class="publication-authors">Polisano, F., Ryals, A.D., Pannocchia, G., Landi, A.</div>
                 <div class="publication-venue">Computer Methods and Programs in Biomedicine, 210:106383, 2021</div>
@@ -862,26 +932,26 @@
     </section>
 
     <section class="section contact-section" id="contact">
-        <h2 class="section-title">Let's Connect</h2>
-        <p class="section-subtitle">Open to collaboration and new opportunities</p>
-        <div class="contact-info">
+        <h2 class="section-title reveal">Let's Connect</h2>
+        <p class="section-subtitle reveal">Open to collaboration and new opportunities</p>
+        <div class="contact-info reveal">
             <div class="contact-item">
-                <div class="contact-icon">📍</div>
+                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                 <strong>Location</strong>
                 <span>Brussels, Belgium</span>
             </div>
             <div class="contact-item">
-                <div class="contact-icon">📧</div>
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                 <strong>Email</strong>
                 <span>fabiopolisano@outlook.com</span>
             </div>
             <div class="contact-item">
-                <div class="contact-icon">📱</div>
+                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
                 <strong>Phone</strong>
                 <span>+39 347 403 8777</span>
             </div>
         </div>
-        <div class="social-links">
+        <div class="social-links reveal">
             <a href="https://github.com/polifab" target="_blank" class="social-link" aria-label="GitHub">
                 <i class="fab fa-github"></i>
             </a>
@@ -896,6 +966,159 @@
     </footer>
 
     <script>
+        // --- 1. PARTICLE NETWORK ANIMATION ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        // Mouse interaction
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        }
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Create Particle Class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            // Draw particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            // Update particle position
+            update() {
+                // Check if particle is within canvas boundaries
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+
+                // Mouse interaction (Collision/Repel/Attract)
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                
+                // If mouse is close, gently push particles away to create a "path"
+                // OR attract them. Here we just let them float but connect lines.
+                
+                // Move particle
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        // Initialize Particles
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000; // Density
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25; // Speed
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = '#5a9d88'; // Accent color
+                
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Animation Loop
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connectParticles();
+        }
+
+        // Connect particles with lines if close enough
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = 'rgba(90, 157, 136,' + opacityValue + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+                
+                // Connect to mouse
+                let mouseDistance = ((particlesArray[a].x - mouse.x) * (particlesArray[a].x - mouse.x)) + 
+                                    ((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y));
+                
+                if (mouseDistance < 20000) {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; // Brighter connection to mouse
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        initParticles();
+        animateParticles();
+
+
+        // --- 2. SCROLL REVEAL ANIMATION ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+
+
+        // --- 3. EXISTING NAVBAR & SLIDER CODE ---
         const navbar = document.querySelector('.navbar');
         
         window.addEventListener('scroll', () => {
