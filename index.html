@@ -982,10 +982,11 @@
             canvas.height = window.innerHeight;
             initParticles();
         });
+        
         // Increments and logs the global visit count to the console
-        fetch('https://api.counterapi.dev/v1/fabiopolisano/portfolio/up')
+        fetch('https://abacus.jasoncameron.dev/hit/fabiopolisano.dev/visits')
           .then(r => r.json())
-          .then(data => console.log('Total visits:', data.count))
+          .then(data => console.log('👀 Total visits:', data.value))
           .catch(() => console.log('Visitor counter unavailable'));
 
         // Mouse interaction
