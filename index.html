@@ -982,6 +982,11 @@
             canvas.height = window.innerHeight;
             initParticles();
         });
+        // Increments and logs the global visit count to the console
+        fetch('https://api.counterapi.dev/v1/fabiopolisano/portfolio/up')
+          .then(r => r.json())
+          .then(data => console.log('Total visits:', data.count))
+          .catch(() => console.log('Visitor counter unavailable'));
 
         // Mouse interaction
         const mouse = {
